@@ -3,7 +3,7 @@ devise_for :users
 root to: 'homes#top'
 
 resources :post_blogs, only: [:new, :create, :index, :show, :edit]
-resources :users, only: [:show, :edit, :update]
+resources :users, only: [:show, :edit, :update], path: 'profiles'
 
 
   get 'about' => 'homes#about', as: 'about'
