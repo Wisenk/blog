@@ -17,6 +17,7 @@ class PostBlogsController < ApplicationController
       render :new
     #
     end
+  end
 
   def edit
   end
@@ -29,6 +30,17 @@ class PostBlogsController < ApplicationController
 
   def index
     @post_blogs = PostBlog.all
+  end
+
+  def search
+    @post_blogs = PostBlog.where("title LIKE ?", "%#{params[:query]}%")
+    if @post_blogs.empty?
+      flash.now[:alert] = "No posts found matching your search criteria."
+      @post_blogs = PostBlog.all
+    else
+      flash.now[:notice] = "#{@post_blogs.count} posts found."
+    end
+    render :index
   end
 
 
