@@ -1,1 +1,39 @@
-<h1>PostBlogs#index</h1>
+<div class="container my-5">
+  <h1 class="mb-4 text-center">Explore Delicious Posts</h1>
+
+  <% if flash[:notice] %>
+    <div class="alert alert-success text-center"><%= flash[:notice] %></div>
+  <% elsif flash[:alert] %>
+    <div class="alert alert-danger text-center"><%= flash[:alert] %></div>
+  <% end %>
+
+  <% if @post_blogs.any? %>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <% @post_blogs.each do |post| %>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <%# If you have an image attached (Active Storage) %>
+            <% if post.image.attached? %>
+              <%= image_tag post.image, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+            <% else %>
+              <img src="https://source.unsplash.com/400x200/?food" class="card-img-top" alt="Food placeholder">
+            <% end %>
+
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text"><%= truncate(post.body, length: 120) %></p>
+              <%= link_to 'Read More', post_blog_path(post), class: 'btn btn-primary mt-auto' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center">No posts yet. Why not create one?</p>
+    <% if user_signed_in? %>
+      <div class="text-center">
+        <%= link_to 'Create New Post', new_post_blog_path, class: 'btn btn-success' %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

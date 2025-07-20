@@ -1,2 +1,26 @@
-<h1>PostBlogs#show</h1>
-<p>Find me in app/views/post_blogs/show.html.erb</p>
+<div class="container my-5" style="max-width: 900px;">
+  <div class="card shadow-sm">
+    <%# If you have an image %>
+    <% if @post_blog.image.attached? %>
+      <%= image_tag @post_blog.image, class: "card-img-top", style: "object-fit: cover; max-height: 400px;" %>
+    <% end %>
+
+    <div class="card-body">
+      <h1 class="card-title mb-3"><%= @post_blog.title %></h1>
+      <p class="card-text"><%= simple_format(@post_blog.body) %></p>
+
+      <p class="text-muted mt-4 mb-0">
+        Posted by <%= @post_blog.user.name if @post_blog.respond_to?(:user) %>
+        on <%= @post_blog.created_at.strftime("%B %d, %Y") %>
+      </p>
+
+      <div class="mt-4">
+        <%= link_to "Back to Posts", post_blogs_path, class: "btn btn-outline-secondary" %>
+        <% if @post_blog.user == current_user %>
+          <%= link_to "Edit", edit_post_blog_path(@post_blog), class: "btn btn-primary" %>
+          <%= link_to "Delete", @post_blog, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@ class PostBlogsController < ApplicationController
   def create
     #
     @post_blog = PostBlog.new(post_blog_params)
-    @post_blog.user = current_user.id
+    @post_blog.user = current_user
     @post_blog.image.attach(params[:post_blog][:image]) if params[:post_blog][:image].present?
     if @post_blog.save
       flash[:notice] = "Post was successfully created."
@@ -23,9 +23,31 @@ class PostBlogsController < ApplicationController
   end
 
   def show
+    @post_blog = PostBlog.find(params[:id])
   end
 
   def view
+  end
+
+  def update
+    if @post_blog.update(post_blog_params)
+      flash[:notice] = "Post was successfully updated."
+      redirect_to post_blog_path(@post_blog)
+    else
+      flash.now[:alert] = "Failed to update post. Please check the errors."
+      render :edit
+    end
+  end
+
+  def destroy
+    @post_blog = PostBlog.find(params[:id])
+    if @post_blog.destroy
+      flash[:notice] = "Post was successfully deleted."
+      redirect_to post_blogs_path
+    else
+      flash.now[:alert] = "Failed to delete post. Please try again."
+      redirect_to post_blog_path(@post_blog)
+    end
   end
 
   def index
@@ -44,9 +66,19 @@ class PostBlogsController < ApplicationController
   end
 
 
+
   private
 
   def post_blog_params
     params.require(:post_blog).permit(:title, :body, :image)
   end
+
+  def set_post_blog
+    @post_blog = PostBlog.find(params[:id])
+    unless @post_blog.user == current_user
+      flash[:alert] = "You are not authorized to perform this action."
+      redirect_to post_blogs_path
+    end
+  end
+  before_action :set_post_blog, only: [:edit, :update, :destroy]
 end
