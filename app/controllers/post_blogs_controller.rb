@@ -1,4 +1,5 @@
 class PostBlogsController < ApplicationController
+  before_action :set_post_blog, only: [:edit, :update, :destroy, :show]
 
   def new
     @post_blog = PostBlog.new
@@ -8,7 +9,7 @@ class PostBlogsController < ApplicationController
     #
     @post_blog = PostBlog.new(post_blog_params)
     @post_blog.user = current_user
-    @post_blog.image.attach(params[:post_blog][:image]) if params[:post_blog][:image].present?
+        
     if @post_blog.save
       flash[:notice] = "Post was successfully created."
       redirect_to post_blog_path(@post_blog) 
@@ -54,6 +55,13 @@ class PostBlogsController < ApplicationController
     @post_blogs = PostBlog.all
   end
 
+  def myposts
+    @post_blogs = current_user.post_blogs
+    flash.now[:alert] = "You have no posts yet. Create one to share your thoughts!" if @post_blogs.empty?
+    render :index
+    end
+  end
+
   def search
     @post_blogs = PostBlog.where("title LIKE ?", "%#{params[:query]}%")
     if @post_blogs.empty?
@@ -80,5 +88,6 @@ class PostBlogsController < ApplicationController
       redirect_to post_blogs_path
     end
   end
-  before_action :set_post_blog, only: [:edit, :update, :destroy]
-end
+
+
+

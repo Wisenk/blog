@@ -3,6 +3,8 @@ devise_for :users
 root to: 'homes#top'
 
 resources :post_blogs, only: [:new, :create, :index, :show, :edit]
+get '/myposts' => 'post_blogs#myposts', as: 'myposts'
+
 resources :users, only: [:show, :edit, :update], path: 'profiles'
 
 resources :post_blogs do
