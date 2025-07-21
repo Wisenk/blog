@@ -1,19 +1,18 @@
 <% if flash[:alert] %>
-<div class="alert alert-info"><%= flash[:alert] %></div>
+  <div class="alert alert-info"><%= flash[:alert] %></div>
 <% end %>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="row">
   <% @post_blogs.each do |post_blog| %>
-    <div class="col">
+    <div class="col-12 col-md-4 mb-4">
       <div class="card h-100 shadow-sm">
-        <%# Show uploaded image only if attached %>
         <% if post_blog.image.attached? %>
           <%= image_tag post_blog.image, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
         <% end %>
 
         <div class="card-body d-flex flex-column">
           <h5 class="card-title"><%= post_blog.title %></h5>
-          <p class="card-text"><%= truncate(post_blog.body, length: 120) %></p>
+          <p class="card-text"><%= truncate(post_blog.body, length: 100) %></p>
           <%= link_to 'Read More', post_blog_path(post_blog), class: 'btn btn-primary mt-auto' %>
         </div>
       </div>
@@ -22,10 +21,10 @@
 </div>
 
 <% if @post_blogs.empty? %>
-<p class="text-center">No posts yet. Why not create one?</p>
-<% if user_signed_in? %>
-  <div class="text-center">
-    <%= link_to 'Create New Post', new_post_blog_path, class: 'btn btn-success' %>
-  </div>
-<% end %>
+  <p class="text-center">No posts yet. Why not create one?</p>
+  <% if user_signed_in? %>
+    <div class="text-center">
+      <%= link_to 'Create New Post', new_post_blog_path, class: 'btn btn-success' %>
+    </div>
+  <% end %>
 <% end %>

@@ -57,8 +57,8 @@ class PostBlogsController < ApplicationController
 
   def myposts
     @post_blogs = current_user.post_blogs
-    flash.now[:alert] = "You have no posts yet. Create one to share your thoughts!" if @post_blogs.empty?
-    render :index
+    if @post_blogs.empty? 
+      flash.now[:alert] = "You have no posts yet. Create one to share your thoughts!" 
     end
   end
 
@@ -88,6 +88,6 @@ class PostBlogsController < ApplicationController
       redirect_to post_blogs_path
     end
   end
-
+end
 
 
