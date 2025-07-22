@@ -1,2 +1,29 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div class="container mt-5">
+  <div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <h4 class="card-title text-center mb-4">Edit Profile</h4>
+
+      <%= form_with model: @user, local: true do |f| %>
+        <% if @user.profile_image.attached? %>
+          <div class="mb-3 text-center">
+            <%= image_tag @user.profile_image, variants: { resize_to_limit: [150, 150] }, class: "rounded-circle mb-3", width: 150, height: 150 %>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :profile_image, "Change Profile Picture" %>
+          <%= f.file_field :profile_image, class: "form-control-file" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :name, "Name" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <%= f.submit "Save Changes", class: "btn btn-primary btn-block" %>
+      <% end %>
+
+      <%= link_to "Delete Account", @user, method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: "btn btn-danger btn-block mt-2" %>
+    </div>
+  </div>
+</div>
