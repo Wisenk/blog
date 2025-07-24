@@ -7,7 +7,7 @@
 
     <div class="card-body">
       <h1 class="card-title mb-3"><%= @post_blog.title %></h1>
-      <p class="card-text"><%= simple_format(@post_blog.body) %></p>
+      <p class="card-text"><%= @post_blog.body %></p>
 
       <p class="text-muted mt-4 mb-0">
         Posted by <%= @post_blog.user.name if @post_blog.respond_to?(:user) %>
