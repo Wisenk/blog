@@ -3,10 +3,14 @@
     <div class="card-body">
       <h4 class="card-title text-center mb-4">Edit Profile</h4>
 
-      <%= form_with model: @user, local: true do |f| %>
+      <%= form_with model: @user, local: true, multipart: true do |f| %>
         <% if @user.profile_image.attached? %>
           <div class="mb-3 text-center">
-            <%= image_tag @user.profile_image, variants: { resize_to_limit: [150, 150] }, class: "rounded-circle mb-3", width: 150, height: 150 %>
+            <%= image_tag @user.display_profile_image, class: "rounded-circle mb-3", width: 150, height: 150 %>
+          </div>
+        <% else %>
+          <div class="mb-3 text-center">
+            <%= image_tag "no_image.jpg", class: "rounded-circle mb-3", width: 150, height: 150 %>
           </div>
         <% end %>
 
