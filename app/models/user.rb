@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   def get_profile_image
    if profile_image.attached?
-      profile_image.variant(resize_to_limit: [100, 100])
+      profile_image.variant(resize_to_limit: [150, 150])
     else
       "app/assets/images/no_image.jpg"
     end

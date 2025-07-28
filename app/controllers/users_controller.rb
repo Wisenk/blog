@@ -1,18 +1,10 @@
 class UsersController < ApplicationController
+before_action :authenticate_user!
 
   def new
   end
 
   def index
-  end
-
-  def get_profile_image
-    @user = current_user
-    unless @user.profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      @user.profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-    end
-    @user.profile_image.variant(resize_to_limit: [100, 100]).processed
   end
 
   def show
