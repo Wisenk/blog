@@ -1,5 +1,23 @@
 @use '~bootstrap/scss/bootstrap';
 
-.trix-content img {
-    max-width: 50%;
+
+.trix-content {
+    img {
+        @extend .img-fluid;
+        max-width: 100%;
+        height: auto;
+    }
+
+    figure {
+        display: block;
+        margin: 1rem auto;
+        text-align: center;
+    }
+
+    figure > img {
+        @extend .img-fluid;
+        max-width: 300px;
+        height: auto;
+        border-radius: 0.5rem;
+    }
 }

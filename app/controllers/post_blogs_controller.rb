@@ -11,10 +11,10 @@ class PostBlogsController < ApplicationController
     @post_blog.user = current_user
         
     if @post_blog.save
-      flash[:notice] = "Post was successfully created."
+      flash[:notice] = "Post was successfully created!"
       redirect_to post_blog_path(@post_blog) 
     else
-      flash.now[:alert] = "Failed to create post. Please check the errors."
+      flash.now[:alert] = "Failed to create post. Please try again."
       render :new
     #
     end
@@ -32,10 +32,10 @@ class PostBlogsController < ApplicationController
 
   def update
     if @post_blog.update(post_blog_params)
-      flash[:notice] = "Post was successfully updated."
+      flash[:notice] = "Post was successfully updated!"
       redirect_to post_blog_path(@post_blog)
     else
-      flash.now[:alert] = "Failed to update post. Please check the errors."
+      flash.now[:alert] = "Failed to update post. Please try again."
       render :edit
     end
   end
@@ -62,16 +62,16 @@ class PostBlogsController < ApplicationController
     end
   end
 
-  def search
-    @post_blogs = PostBlog.where("title LIKE ?", "%#{params[:query]}%")
-    if @post_blogs.empty?
-      flash.now[:alert] = "No posts found matching your search criteria."
-      @post_blogs = PostBlog.all
-    else
-      flash.now[:notice] = "#{@post_blogs.count} posts found."
-    end
-    render :index
-  end
+  # def search
+    # @post_blogs = PostBlog.where("title LIKE ?", "%#{params[:query]}%")
+    # if @post_blogs.empty?
+    #  flash.now[:alert] = "No posts found matching your search criteria."
+    #  @post_blogs = PostBlog.all
+    # else
+    #  flash.now[:notice] = "#{@post_blogs.count} posts found."
+    # end
+    # render :index
+  # end 
 
 
 
