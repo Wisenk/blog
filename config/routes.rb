@@ -2,18 +2,15 @@ Rails.application.routes.draw do
 devise_for :users
 root to: 'homes#top'
 
-resources :post_blogs, only: [:new, :create, :index, :show, :edit]
 get '/myposts' => 'post_blogs#myposts', as: 'myposts'
-
-resources :users, only: [:show, :edit, :update], path: 'profiles'
+get 'about' => 'homes#about', as: 'about'
 
 resources :post_blogs do
+  resources :post_comments, only: [:create]
   collection do
     get 'search'
   end
 end
 
-
-get 'about' => 'homes#about', as: 'about'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+resources :users, only: [:show, :edit, :update], path: 'profiles'
 end
