@@ -1,6 +1,6 @@
 <div class="container my-5" style="max-width: 900px;">
-  <div class="card shadow-sm">
-    <%# If you have an image %>
+
+  <div class="card shadow-sm mb-4">
     <% if @post_blog.image.attached? %>
       <%= image_tag @post_blog.image, class: "card-img-top", style: "object-fit: cover; max-height: 400px;" %>
     <% end %>
@@ -24,22 +24,49 @@
     </div>
   </div>
 
-  <div>
-    <p>comments:<%= @post_blog.comments.count %></p>
-    <% @post_blogs.post_comments.each do |post_comment| %>
-      <p><%= image_tag post_comment.user.get_profile_image, class: "rounded-circle", style: "width: 30px; height: 30px;" %> <%= post_comment.user.name %></p>
-      <%= post_comment.user.name %> 
-      <%= post_comment.created_at.strftime("%Y/%m/%d %H:%M") %><%= post_comment.body %>
-    <% end %>
+  <!--  Comments -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <h4 class="mb-4">Comments (<%= @post_blog.post_comments.count %>)</h4>
+
+      <% if @post_blog.post_comments.any? %>
+        <div class="list-group mb-4">
+          <% @post_blog.post_comments.each do |post_comment| %>
+            <div class="list-group-item list-group-item-action">
+              <div class="media">
+                <%= image_tag post_comment.user.get_profile_image, class: "rounded-circle mr-3", width: 50, height: 50 if post_comment.user %>
+
+                <div class="media-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <h5 class="mt-2 mb-1"><%= post_comment.user.name %></h5>
+                    <small class="text-muted"><%= time_ago_in_words(post_comment.created_at) %> ago</small>
+                  </div>
+
+                  <p class="mt-2 mb-1"><%= post_comment.comment %></p>
+
+                  <% if post_comment.user == current_user %>
+                    <%= link_to "Delete", post_blog_post_comment_path(@post_blog, post_comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger mt-2" %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-muted">No comments yet. Be the first to leave one!</p>
+      <% end %>
+
+      <!-- Comment Form -->
+      <h5 class="mt-4">Add a Comment</h5>
+      <%= form_with model: [@post_blog, @post_comment], local: true do |f| %>
+        <div class="form-group">
+          <%= f.text_area :comment, class: "form-control", placeholder: "Write your comment here...", rows: 3, required: true %>
+        </div>
+        <%= f.submit "Post Comment", class: "btn btn-primary mt-2" %>
+      <% end %>
+
+    </div>
   </div>
 
-  <div class="mt-4">
-    <%= form_with model: [@post_blog, @post_comment] do |f| %>
-      <div class="form-group">
-        <%= f.label :body, "Add a comment" %>
-        <%= f.text_area :body, class: "form-control", rows: 3, required: true %>
-      </div>
-      <%= f.submit "Post Comment", class: "btn btn-primary mt-2" %>
-    <% end %>
-  </div>
 </div>
