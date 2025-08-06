@@ -23,4 +23,23 @@
       </div>
     </div>
   </div>
+
+  <div>
+    <p>comments:<%= @post_blog.comments.count %></p>
+    <% @post_blogs.post_comments.each do |post_comment| %>
+      <p><%= image_tag post_comment.user.get_profile_image, class: "rounded-circle", style: "width: 30px; height: 30px;" %> <%= post_comment.user.name %></p>
+      <%= post_comment.user.name %> 
+      <%= post_comment.created_at.strftime("%Y/%m/%d %H:%M") %><%= post_comment.body %>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= form_with model: [@post_blog, @post_comment] do |f| %>
+      <div class="form-group">
+        <%= f.label :body, "Add a comment" %>
+        <%= f.text_area :body, class: "form-control", rows: 3, required: true %>
+      </div>
+      <%= f.submit "Post Comment", class: "btn btn-primary mt-2" %>
+    <% end %>
+  </div>
 </div>

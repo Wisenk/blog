@@ -1,5 +1,6 @@
 class PostBlogsController < ApplicationController
-  before_action :set_post_blog, only: [:edit, :update, :destroy, :show]
+  before_action :set_post_blog, only: [:edit, :update, :destroy]
+
 
   def new
     @post_blog = PostBlog.new
@@ -25,6 +26,7 @@ class PostBlogsController < ApplicationController
 
   def show
     @post_blog = PostBlog.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def view
