@@ -5,9 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
  
   has_many :post_blogs, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
   has_one_attached :profile_image
 
   validates :name, presence: true, length: { minimum: 2, maximum: 20 }
+  validates :email, presence: true, uniqueness: true
 
   def get_profile_image
    if profile_image.attached?

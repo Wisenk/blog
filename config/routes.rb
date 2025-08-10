@@ -1,17 +1,35 @@
 Rails.application.routes.draw do
-devise_for :users
-root to: 'homes#top'
+  scope module: :public do
+    devise_for :users, controllers: {
+      registrations: 'public/registrations'
+    }
 
-get '/myposts' => 'post_blogs#myposts', as: 'myposts'
-get 'about' => 'homes#about', as: 'about'
+    root to: 'homes#top'
+    get '/myposts' => 'post_blogs#myposts', as: 'myposts'
+    get 'about' => 'homes#about', as: 'about'
+    
+    resources :post_blogs, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+      resources :post_comments, only: [:create, :destroy]
+      
+      collection do
+        get 'search'
+      end
+    end
 
-resources :post_blogs do
-  resources :post_comments
-  
-  collection do
-    get 'search'
+    resources :users do
+      resources :post_blogs, only: [:index, :show]
+    end
   end
+
+
+
+devise_for :admin, skip: [:registrations, :password], controllers: {
+  sessions: 'admin/sessions'
+}
+
+namespace :admin do
+  get 'dashboard', to: 'dashboards#index'
+  resources :users, only: [:destroy]
 end
 
-resources :users, only: [:show, :edit, :update], path: 'profiles'
 end

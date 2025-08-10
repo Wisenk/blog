@@ -1,4 +1,4 @@
-class PostBlogsController < ApplicationController
+class Public::PostBlogsController < ApplicationController
   before_action :set_post_blog, only: [:edit, :update, :destroy]
 
 
