@@ -1,5 +1,5 @@
 class Public::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_permitted_parameters, only: [:create]
+    before_action :configure_permitted_parameters, only: [:create]
 
   def new
     super

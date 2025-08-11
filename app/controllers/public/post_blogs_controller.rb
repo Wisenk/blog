@@ -1,4 +1,5 @@
 class Public::PostBlogsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_post_blog, only: [:edit, :update, :destroy]
 
 
