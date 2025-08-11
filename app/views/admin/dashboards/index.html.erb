@@ -1,9 +1,16 @@
-<h1>全ユーザー一覧</h1>
-<ul>
-  <% @users.each do |user| %>
-    <li>
-      <%= user.name %> - <%= user.email %>
-        <%= link_to "Delete", admin_user_path(user), method: :delete, data: { confirm: "Are you sure?" } %>
+<div class="container mt-4">
+  <h1>Admin Dashboard</h1>
+  <p>Manage users, posts, and comments.</p>
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <%= link_to "Users", admin_users_path, class: "nav-link" %>
     </li>
-  <% end %>
-</ul>
+    <li class="nav-item">
+      <%= link_to "Posts", admin_post_blogs_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Comments", admin_post_comments_path, class: "nav-link" %>
+    </li>
+  </ul>
+</div>

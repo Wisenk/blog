@@ -28,8 +28,10 @@ devise_for :admin, skip: [:registrations, :password], controllers: {
 }
 
 namespace :admin do
+  resources :users, only: [:index, :destroy]
+  resources :post_blogs, only: [:index, :destroy]
+  resources :post_comments, only: [:index, :destroy]
   get 'dashboard', to: 'dashboards#index'
-  resources :users, only: [:destroy]
 end
 
 end

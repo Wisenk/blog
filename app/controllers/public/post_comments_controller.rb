@@ -4,8 +4,8 @@ class Public::PostCommentsController < ApplicationController
     def create
         @post_blog = PostBlog.find(params[:post_blog_id])
         @post_comment = @post_blog.post_comments.build(post_comment_params)
-        @post_comment.user = current_user  # Associate the comment with the current user
-        # Ensure the post_comment is associated with the post_blog
+        @post_comment.user = current_user  
+        
         @post_comment.save
         redirect_to post_blog_path(@post_blog), notice: "Comment was successfully created."
     end

@@ -1,8 +1,13 @@
 class Admin::UsersController < ApplicationController
     before_action :authenticate_admin!
-    def destroy
+
+    def index
+        @users = User.order(created_at: :desc)
+      end
+    
+      def destroy
         @user = User.find(params[:id])
         @user.destroy
-            redirect_to admin_dashboard_path, notice: "User was successfully deleted."
+        redirect_to admin_users_path, notice: "User deleted."
+      end
     end
-end

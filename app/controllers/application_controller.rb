@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  before_action :configure_authentication
   
 
   private
@@ -17,10 +17,13 @@ class ApplicationController < ActionController::Base
   end
 
   def action_is_public?
-    controller_name == 'home' && action_name == 'top'
+    (controller_name == 'homes' && %w[top about].include?(action_name)) ||
+    (controller_name == 'post_blogs' && action_name == 'search') ||
+    (controller_name == 'post_blogs' && action_name == 'index') ||
+    (controller_name == 'post_blogs' && action_name == 'show')
   end
 
-end
 
+end
 
 
