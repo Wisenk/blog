@@ -65,16 +65,16 @@ class Public::PostBlogsController < ApplicationController
     end
   end
 
-  # def search
-    # @post_blogs = PostBlog.where("title LIKE ?", "%#{params[:query]}%")
-    # if @post_blogs.empty?
-    #  flash.now[:alert] = "No posts found matching your search criteria."
-    #  @post_blogs = PostBlog.all
-    # else
-    #  flash.now[:notice] = "#{@post_blogs.count} posts found."
-    # end
-    # render :index
-  # end 
+  def search
+    @post_blogs = PostBlog.search(params[:keyword])
+    if @post_blogs.empty?
+      flash.now[:alert] = "No posts found matching your search criteria."
+    else
+      flash.now[:notice] = "#{@post_blogs.count} post(s) found matching your search criteria."
+    end
+    
+    render :index
+  end
 
 
 

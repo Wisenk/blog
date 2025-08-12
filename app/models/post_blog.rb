@@ -17,4 +17,14 @@ class PostBlog < ApplicationRecord
   validates :title, presence: true, length: { minimum: 2, maximum: 100 }
   # validates :body, presence: true, length: { minimum: 5, maximum: 1000 }
   validates :image, content_type: [:png, :jpg, :jpeg, :webp], size: { less_than: 5.megabytes }
+
+
+  def self.search(keyword)
+    if keyword.present?
+      PostBlog.where('title ILIKE :q OR body ILIKE :q', q: "%#{keyword}%")
+    else
+      PostBlog.all
+    end
+  end
+
 end
