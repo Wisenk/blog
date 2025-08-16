@@ -11,6 +11,9 @@
 
       <h5 class="text-muted mb-0">Name</h5>
       <h4 class="card-title"><%= @user.name %></h4>
+      <h5 class="text-muted mb-0">About Me</h5>
+      <p class="card-text"><%= @user.body.present? ? @user.body : "No information provided." %></p>
+
       
       <% if @user == current_user %>
         <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary mt-3' %>

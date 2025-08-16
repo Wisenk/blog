@@ -41,6 +41,6 @@ before_action :authenticate_user!
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :profile_image, :introduction)
+    params.require(:user).permit(:name, :body, :profile_image)
   end
 end
