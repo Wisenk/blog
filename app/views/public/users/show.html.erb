@@ -12,9 +12,12 @@
       <h5 class="text-muted mb-0">Name</h5>
       <h4 class="card-title"><%= @user.name %></h4>
       
-      <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary mt-3' %>
-      <%= link_to "View My Posts", myposts_path, class: 'btn btn-primary mt-3' %>
-
+      <% if @user == current_user %>
+        <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary mt-3' %>
+        <%= link_to "View My Posts", user_post_blogs_path(@user), class: 'btn btn-primary mt-3' %>
+      <% else %>
+        <%= link_to "View #{@user.name}'s Posts", user_post_blogs_path(@user), class: 'btn btn-primary mt-3' %>
+      <% end %>
     </div>
   </div>
 </div>

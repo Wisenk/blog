@@ -55,7 +55,12 @@ class Public::PostBlogsController < ApplicationController
   end
 
   def index
-    @post_blogs = PostBlog.all
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @post_blogs = @user.post_blogs.order(created_at: :desc)
+    else
+      @post_blogs = PostBlog.all.includes(:user)
+    end
   end
 
   def myposts

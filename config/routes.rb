@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   
     resources :post_blogs, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :post_comments, only: [:create, :destroy]
-      resources :favorites, only: [:create, :destroy]
+      #resource :favorites, only: [:create, :destroy]
       
       collection do
         get 'search'
@@ -48,8 +48,8 @@ namespace :admin do
     sessions: 'admin/sessions'
   }
 
-  resources :users, only: [:index, :destroy]
-  resources :post_blogs, only: [:index, :destroy]
+  resources :users, only: [:index, :show, :destroy]
+  resources :post_blogs, only: [:index, :show, :destroy]
   resources :post_comments, only: [:index, :destroy]
   get 'dashboard', to: 'dashboards#index'
 end

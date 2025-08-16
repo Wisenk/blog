@@ -5,10 +5,13 @@ before_action :authenticate_user!
   end
 
   def index
+    @user = User.find(params[:id])
+    @post_blogs = @user.post_blogs
   end
 
   def show
-    @user = current_user
+    @user = User.find(params[:id])
+    @post_blogs = @user.post_blogs
   end
 
   def edit
