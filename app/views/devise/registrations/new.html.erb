@@ -40,6 +40,11 @@
             </div>
 
             <div class="form-group">
+              <%= f.label :body, "About Me" %>
+              <%= f.text_area :body, class: "form-control", rows: 3, placeholder: "Tell us about yourself..." %>
+            </div>
+
+            <div class="form-group">
               <%= f.label :password, "Password" %>
               <% if @minimum_password_length %>
                 <small class="form-text text-muted">
