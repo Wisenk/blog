@@ -71,16 +71,12 @@ class Public::PostBlogsController < ApplicationController
   end
 
   def search
-    query = params[:query]  
-    scope = params[:scope] 
-
-    if scope == "users"
-      @users = User.where("name LIKE ?", "%#{query}%")
-      @post_blogs = PostBlog.none
-      render 'public/post_blogs/index'
+    @post_blogs = PostBlog.search(params[:keyword])
+    if @post_blogs.empty?
+      flash.now[:alert] = "No posts found matching your search criteria."
     else
-      @post_blogs = PostBlog.where("title LIKE ? OR body LIKE ?", "%#{query}%", "%#{query}%")
-      render 'public/post_blogs/index'
+      flash.now[:notice] = "Found #{@post_blogs.count} posts matching your search."
+      render :index
     end
   end
 end
