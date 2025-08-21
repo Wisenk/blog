@@ -73,15 +73,15 @@ ActiveRecord::Schema.define(version: 2025_08_16_130632) do
   create_table "post_comments", force: :cascade do |t|
     t.text "comment"
     t.integer "user_id"
+    t.integer "post_blog_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "post_blog_id", null: false
     t.index ["post_blog_id"], name: "index_post_comments_on_post_blog_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "title"
-    t.string "body"
+    t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false
