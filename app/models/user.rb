@@ -12,10 +12,10 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   def get_profile_image
-   if profile_image.attached?
-      profile_image.variant(resize_to_limit: [150, 150])
-    else
-      "app/assets/images/no_image.jpg"
+    unless profile_image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'default-profile.jpg', content_type: 'image/jpeg, image/png, image/jpg')
     end
+    profile_image.variant(resize_to_limit: [150, 150])
   end
 end
