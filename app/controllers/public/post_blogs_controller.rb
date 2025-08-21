@@ -75,11 +75,11 @@ class Public::PostBlogsController < ApplicationController
     if @post_blogs.empty?
       flash.now[:alert] = "No posts found matching your search criteria."
     else
-      flash.now[:notice] = "#{@post_blogs.count} post(s) found matching your search criteria."
+      flash.now[:notice] = "Found #{@post_blogs.count} posts matching your search."
+      render :index
     end
-    
-    render :index
   end
+end
 
 
 
@@ -96,6 +96,6 @@ class Public::PostBlogsController < ApplicationController
       redirect_to post_blogs_path
     end
   end
-end
+
 
 

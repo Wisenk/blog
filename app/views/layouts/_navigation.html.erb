@@ -27,11 +27,12 @@
           <% end %>
         </ul>
 
-        <form class="form-inline my-2 my-lg-0 ml-auto" action="<%= search_post_blogs_path %>" method="get">
+          <form class="form-inline my-2 my-lg-0 ml-auto" action="<%= search_post_blogs_path %>" method="get">
           <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search posts..." aria-label="Search">
           <button class="btn btn-outline-light mr-4" type="submit">Search</button>
-        </form>
+          </form>
       </div>
+
 
       <div class="d-flex">
         <% if user_signed_in? %>
