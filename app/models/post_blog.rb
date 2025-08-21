@@ -21,7 +21,7 @@ class PostBlog < ApplicationRecord
 
   def self.search(keyword)
     if keyword.present?
-      PostBlog.where('title ILIKE :q OR body ILIKE :q', q: "%#{keyword}%")
+      PostBlog.where('LOWER(title) LIKE ?', "%#{keyword.downcase}%")
     else
       PostBlog.all
     end
