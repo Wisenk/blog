@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_08_16_130632) do
+ActiveRecord::Schema.define(version: 2025_08_25_154214) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -62,6 +62,15 @@ ActiveRecord::Schema.define(version: 2025_08_16_130632) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "post_blog_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_blog_id"], name: "index_favorites_on_post_blog_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
   create_table "post_blogs", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -96,5 +105,7 @@ ActiveRecord::Schema.define(version: 2025_08_16_130632) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "favorites", "post_blogs"
+  add_foreign_key "favorites", "users"
   add_foreign_key "post_comments", "post_blogs"
 end

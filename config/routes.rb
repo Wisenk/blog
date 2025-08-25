@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   
     resources :post_blogs, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :post_comments, only: [:create, :destroy]
-      #resource :favorites, only: [:create, :destroy]
+      resource :favorite, only: [:create, :destroy]
       
       collection do
         get 'search'

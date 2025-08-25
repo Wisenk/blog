@@ -3,6 +3,7 @@ class PostBlog < ApplicationRecord
   has_one_attached :image
   belongs_to :user
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   has_rich_text :body
 
@@ -25,6 +26,10 @@ class PostBlog < ApplicationRecord
     else
       PostBlog.all
     end
+  end
+
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
   end
 
 end

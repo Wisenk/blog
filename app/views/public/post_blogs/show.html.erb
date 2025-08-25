@@ -20,11 +20,31 @@
           <%= link_to "Edit", edit_post_blog_path(@post_blog), class: "btn btn-primary" %>
           <%= link_to "Delete", @post_blog, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
         <% end %>
+
+        !!--- Favorite Button --!
+        <div class="d-inline-block">
+          <% if @post_blog.favorited_by?(current_user) %>
+            <%= link_to post_blog_favorite_path(@post_blog),
+                        method: :delete,
+                        remote: true,
+                        class: "btn btn-warning btn-sm rounded-pill favorite-btn" do %>
+              <span>♥</span> <span class="favorite-count"><%= @post_blog.favorites.count %></span>
+            <% end %>
+          <% else %>
+            <%= link_to post_blog_favorite_path(@post_blog),
+                        method: :post,
+                        remote: true,
+                        class: "btn btn-outline-warning btn-sm rounded-pill favorite-btn" do %>
+              <span>♡</span> <span class="favorite-count"><%= @post_blog.favorites.count %></span>
+            <% end %>
+          <% end %>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <!--  Comments -->
+ 
   <div class="card shadow-sm">
     <div class="card-body">
 
@@ -57,7 +77,7 @@
         <p class="text-muted">No comments yet. Be the first to leave one!</p>
       <% end %>
 
-      <!-- Comment Form -->
+ 
       <h5 class="mt-4">Add a Comment</h5>
       <%= form_with model: [@post_blog, @post_comment], local: true do |f| %>
         <div class="form-group">
