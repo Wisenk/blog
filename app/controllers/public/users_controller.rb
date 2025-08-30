@@ -5,8 +5,7 @@ before_action :authenticate_user!
   end
 
   def index
-    @user = User.find(params[:id])
-    @post_blogs = @user.post_blogs
+    @users = User.all
   end
 
   def show
@@ -39,7 +38,7 @@ before_action :authenticate_user!
 
   def followings
     @user = User.find(params[:id])
-    @users = @user.followings
+    @users = @user.following
   end
 
   def followers

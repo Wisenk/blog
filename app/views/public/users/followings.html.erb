@@ -29,4 +29,8 @@
   <% else %>
     <p class="text-muted mt-3">Not following anyone yet.</p>
   <% end %>
+
+  <div class="mt-4">
+    <%= link_to 'Back to Profile', user_path(@user), class: 'btn btn-secondary' %>
+  </div>
 </div>
