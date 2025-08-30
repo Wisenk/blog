@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <h3><%= @user.name %> is Following</h3>
+
+  <% if @users.any? %>
+    <div class="list-group mt-3">
+      <% @users.each do |u| %>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <% if u.profile_image.attached? %>
+              <%= image_tag u.get_profile_image, class: "rounded-circle", width: 50, height: 50 %>
+            <% else %>
+              <%= image_tag "no_image.jpg", class: "rounded-circle", width: 50, height: 50 %>
+            <% end %>
+            <%= link_to u.name, user_path(u), class: "ms-2 fw-bold" %>
+          </div>
+
+          <% if current_user != u %>
+            <% if current_user.following?(u) %>
+              <%= link_to 'Unfollow', relationship_path(current_user.active_relationships.find_by(followed_id: @user.id)),
+                    method: :delete, class: 'btn btn-warning btn-sm' %>
+            <% else %>
+              <%= link_to 'Follow', relationships_path(user_id: @user.id),
+                    method: :post, class: 'btn btn-success btn-sm' %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted mt-3">Not following anyone yet.</p>
+  <% end %>
+</div>

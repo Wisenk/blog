@@ -9,6 +9,10 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many :favorites, dependent: :destroy
   
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
 
   validates :name, presence: true, length: { minimum: 2, maximum: 20 }
   validates :email, presence: true, uniqueness: true
@@ -21,4 +25,17 @@ class User < ApplicationRecord
     end
     profile_image #.variant(resize_to_limit: [150, 150])
   end
+
+  def follow(user)
+    active_relationships.find_or_create_by(followed_id: user.id) 
+  end
+
+  def unfollow(user)
+    relationship = active_relationships.find_by(followed_id: user.id)&.destroy
+  end
+
+  def following?(user)
+    following.include?(user)
+  end
+    
 end

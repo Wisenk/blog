@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_08_25_154214) do
+ActiveRecord::Schema.define(version: 2025_08_30_153725) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -88,6 +88,16 @@ ActiveRecord::Schema.define(version: 2025_08_25_154214) do
     t.index ["post_blog_id"], name: "index_post_comments_on_post_blog_id"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -108,4 +118,6 @@ ActiveRecord::Schema.define(version: 2025_08_25_154214) do
   add_foreign_key "favorites", "post_blogs"
   add_foreign_key "favorites", "users"
   add_foreign_key "post_comments", "post_blogs"
+  add_foreign_key "relationships", "followeds"
+  add_foreign_key "relationships", "followers"
 end

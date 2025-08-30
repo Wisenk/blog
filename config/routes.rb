@@ -30,13 +30,15 @@ Rails.application.routes.draw do
 
     resources :users do
       resources :post_blogs, only: [:index, :show]
-      #member do
-      #  get :post_blogs
-      #  get :favorites
-      #  get :followings
-      #  get :followers
-      #end
+      member do
+        # get :post_blogs
+        # get :favorites
+        get :followings
+        get :followers
+      end
     end
+
+    resources :relationships, only: [:create, :destroy]
   end
 
 
