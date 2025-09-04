@@ -16,7 +16,7 @@ class PostBlog < ApplicationRecord
   end
 
   validates :title, presence: true, length: { minimum: 2, maximum: 100 }
-  validates :body, presence: true, length: { minimum: 2, maximum: 1000 }
+  validates :body, presence: true, length: { minimum: 2 }
   validates :image, content_type: [:png, :jpg, :jpeg, :webp], size: { less_than: 5.megabytes }
 
 
