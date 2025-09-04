@@ -10,7 +10,7 @@ before_action :authenticate_user!
 
   def show
     @user = User.find(params[:id])
-    @post_blogs = @user.post_blogs
+    @post_blogs = @user.post_blogs.page(params[:page]).per(5)
   end
 
   def edit

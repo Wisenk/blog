@@ -59,12 +59,12 @@ class Public::PostBlogsController < ApplicationController
       @user = User.find(params[:user_id])
       @post_blogs = @user.post_blogs.order(created_at: :desc)
     else
-      @post_blogs = PostBlog.all.includes(:user)
+      @post_blogs = PostBlog.order(params[:page]).page(params[:page]).per(9)
     end
   end
 
   def myposts
-    @post_blogs = current_user.post_blogs
+    @post_blogs = current_user.post_blogs.page(params[:page]).per(9)
     if @post_blogs.empty? 
       flash.now[:alert] = "You have no posts yet. Create one to share your thoughts!" 
     end
