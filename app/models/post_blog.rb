@@ -23,6 +23,7 @@ class PostBlog < ApplicationRecord
   def self.search(keyword)
     if keyword.present?
       PostBlog.where('LOWER(title) LIKE ?', "%#{keyword.downcase}%")
+      #blogs = PostBlog.all.select { |blog| blog.body.to_plain_text.downcase.include?(keyword.downcase) || blog.title.downcase.include?(keyword.downcase) } if blogs.empty?
     else
       PostBlog.all
     end
