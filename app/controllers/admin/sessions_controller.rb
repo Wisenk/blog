@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::SessionsController < Devise::SessionsController
-  layout 'admin'
+  layout 'application'
   before_action :authenticate_admin!, except: [:new, :create, :destroy]
   
   # GET /resource/sign_in

@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   #  passwords: 'public/passwords'
   #}
 
-  #devise_for :admins, path: "admin", skip: [:registrations, :password], controllers: {
-  #  sessions: 'admin/sessions'
-  #}
+  devise_for :admins, path: "admin", skip: [:registrations, :password], controllers: {
+    sessions: 'admin/sessions'
+  }
 
   scope module: :public do
     devise_for :users, controllers: {
