@@ -57,9 +57,9 @@ class Public::PostBlogsController < ApplicationController
   def index
     if params[:user_id]
       @user = User.find(params[:user_id])
-      @post_blogs = @user.post_blogs.order(created_at: :desc)
+      @post_blogs = @user.post_blogs.order(created_at: :desc).page(params[:page]).per(9)
     else
-      @post_blogs = PostBlog.order(params[:page]).page(params[:page]).per(9)
+      @post_blogs = PostBlog.order(created_at: :desc).page(params[:page]).per(9)
     end
   end
 
