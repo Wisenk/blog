@@ -71,7 +71,7 @@ class Public::PostBlogsController < ApplicationController
   end
 
   def search
-    @post_blogs = PostBlog.search(params[:keyword])
+    @post_blogs = PostBlog.search(params[:keyword]).order(created_at: :desc).page(params[:page]).per(9)
     if @post_blogs.empty?
       flash.now[:alert] = "No posts found matching your search criteria."
     else
