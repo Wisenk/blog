@@ -28,4 +28,7 @@ BLOG (BeLieve On Gourmetの略) は、外食で食べた料理の写真を投稿
 - JSライブラリ：jQuery
 - IDE：Cloud9
 
+## AWS構成図
+https://drive.google.com/file/d/1VR2UnMZA2_pXQIbBEhHINggEMY3qs0-f/view?usp=sharing
+
 
