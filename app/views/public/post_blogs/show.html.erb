@@ -10,7 +10,7 @@
       <p class="card-text"><%= @post_blog.body %></p>
 
       <p class="text-muted mt-4 mb-0">
-        Posted by <%= @post_blog.user.name if @post_blog.respond_to?(:user) %>
+        Posted by <%= link_to @post_blog.user.name, user_path(@post_blog.user) %>
         on <%= @post_blog.created_at.strftime("%B %d, %Y") %>
       </p>
 
@@ -92,7 +92,7 @@
         <% end %>
       <% else %>
         <div class="alert alert-warning" role="alert">
-          You must be <%= link_to 'signed in', new_user_session_path %> or <%= link_to 'sign up', new_user_registration_path %> to post a comment.
+          You must be <%= link_to 'signed in', new_user_session_path %> or <%= link_to 'sign', new_user_registration_path %> to post a comment.
         </div>
       <% end %>
     </div>
