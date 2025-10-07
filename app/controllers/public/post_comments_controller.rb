@@ -1,5 +1,5 @@
 class Public::PostCommentsController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, only: [:create, :destroy]
 
     def create
         @post_blog = PostBlog.find(params[:post_blog_id])
